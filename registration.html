@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Регистрация</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0f0e0d;
+        --cream: #f5f0e8;
+        --rust: #c0392b;
+        --gold: #c8a96e;
+        --pale: #faf7f2;
+        --border: #d4c9b5;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: var(--pale);
+        font-family: "DM Sans", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Background grid pattern */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 40px 40px;
+        opacity: 0.3;
+        z-index: 0;
+      }
+
+      /* Decorative circles */
+      body::after {
+        content: "";
+        position: fixed;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(200, 169, 110, 0.12) 0%,
+          transparent 70%
+        );
+        top: -200px;
+        right: -200px;
+        z-index: 0;
+      }
+
+      .page-wrap {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        max-width: 960px;
+        width: 95%;
+        min-height: 580px;
+        box-shadow:
+          0 30px 80px rgba(15, 14, 13, 0.18),
+          0 0 0 1px var(--border);
+        border-radius: 2px;
+      }
+
+      /* Left panel */
+      .panel-left {
+        background: var(--ink);
+        padding: 60px 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px 0 0 2px;
+      }
+
+      .panel-left::before {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border: 1px solid rgba(200, 169, 110, 0.2);
+        border-radius: 50%;
+        bottom: -100px;
+        left: -80px;
+      }
+
+      .panel-left::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border: 1px solid rgba(200, 169, 110, 0.1);
+        border-radius: 50%;
+        top: 40px;
+        right: -60px;
+      }
+
+      .brand {
+        position: relative;
+        z-index: 2;
+      }
+
+      .brand-mark {
+        width: 44px;
+        height: 44px;
+        border: 2px solid var(--gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 48px;
+      }
+
+      .brand-mark span {
+        color: var(--gold);
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .panel-heading {
+        font-family: "Playfair Display", serif;
+        font-size: 38px;
+        font-weight: 900;
+        color: var(--cream);
+        line-height: 1.15;
+        margin-bottom: 20px;
+        letter-spacing: -0.5px;
+      }
+
+      .panel-heading em {
+        color: var(--gold);
+        font-style: normal;
+      }
+
+      .panel-sub {
+        color: rgba(245, 240, 232, 0.5);
+        font-size: 14px;
+        line-height: 1.7;
+        font-weight: 300;
+      }
+
+      .panel-footer {
+        position: relative;
+        z-index: 2;
+      }
+
+      .step-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .step-list li {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: rgba(245, 240, 232, 0.6);
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      .step-num {
+        width: 24px;
+        height: 24px;
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold);
+        font-size: 11px;
+        flex-shrink: 0;
+      }
+
+      /* Right panel */
+      .panel-right {
+        background: var(--cream);
+        padding: 60px 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0 2px 2px 0;
+      }
+
+      .form-title {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 36px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .field {
+        margin-bottom: 22px;
+        position: relative;
+      }
+
+      label {
+        display: block;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(15, 14, 13, 0.45);
+        margin-bottom: 8px;
+      }
+
+      input {
+        width: 100%;
+        padding: 13px 16px;
+        border: 1px solid var(--border);
+        background: var(--pale);
+        border-radius: 2px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--ink);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+
+      input:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.12);
+      }
+
+      input::placeholder {
+        color: rgba(15, 14, 13, 0.25);
+      }
+
+      .input-icon {
+        position: absolute;
+        right: 14px;
+        bottom: 13px;
+        color: rgba(15, 14, 13, 0.2);
+        font-size: 16px;
+        pointer-events: none;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 15px;
+        background: var(--ink);
+        color: var(--cream);
+        border: none;
+        border-radius: 2px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.1s;
+        margin-top: 8px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gold);
+        transform: translateX(-101%);
+        transition: transform 0.3s ease;
+      }
+
+      .btn:hover::after {
+        transform: translateX(0);
+      }
+      .btn span {
+        position: relative;
+        z-index: 1;
+      }
+      .btn:active {
+        transform: scale(0.99);
+      }
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        padding: 14px 28px;
+        border-radius: 2px;
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0;
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+        z-index: 999;
+        white-space: nowrap;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .toast.success {
+        background: var(--ink);
+        color: var(--gold);
+        border-left: 3px solid var(--gold);
+      }
+
+      .toast.error {
+        background: #2d0a08;
+        color: #ff8a80;
+        border-left: 3px solid var(--rust);
+      }
+
+      /* Success state */
+      .success-view {
+        display: none;
+        text-align: center;
+        animation: fadeUp 0.5s ease forwards;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .success-icon {
+        width: 64px;
+        height: 64px;
+        border: 2px solid var(--gold);
+        border-radius: 50%;
+        margin: 0 auto 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+      }
+
+      .success-view h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 24px;
+        color: var(--ink);
+        margin-bottom: 10px;
+      }
+
+      .success-view p {
+        color: rgba(15, 14, 13, 0.5);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      /* Spinner */
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(245, 240, 232, 0.3);
+        border-top-color: var(--cream);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 680px) {
+        .page-wrap {
+          grid-template-columns: 1fr;
+        }
+        .panel-left {
+          display: none;
+        }
+        .panel-right {
+          border-radius: 2px;
+          padding: 40px 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrap">
+      <!-- Left -->
+      <div class="panel-left">
+        <div class="brand">
+          <div class="brand-mark"><span>R</span></div>
+          <h1 class="panel-heading">Добро<br />пожало<em>вать</em></h1>
+          <p class="panel-sub">
+            Заполните форму и мы сохраним ваши данные. Это займёт меньше минуты.
+          </p>
+        </div>
+        <div class="panel-footer">
+          <ul class="step-list">
+            <li><span class="step-num">1</span> Введите ваше имя</li>
+            <li><span class="step-num">2</span> Укажите email и телефон</li>
+            <li>
+              <span class="step-num">3</span> Нажмите «Зарегистрироваться»
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="panel-right">
+        <div id="formView">
+          <div class="form-title">Новая регистрация</div>
+
+          <div class="field">
+            <label>Имя и Фамилия</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Иван Иванов"
+              autocomplete="name"
+            />
+            <span class="input-icon">✦</span>
+          </div>
+
+          <div class="field">
+            <label>Электронная почта</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="ivan@example.com"
+              autocomplete="email"
+            />
+            <span class="input-icon">@</span>
+          </div>
+
+          <div class="field">
+            <label>Номер телефона</label>
+            <input
+              type="tel"
+              id="phone"
+              placeholder="+7 (900) 000-00-00"
+              autocomplete="tel"
+            />
+            <span class="input-icon">✆</span>
+          </div>
+
+          <button class="btn" id="submitBtn" onclick="submitForm()">
+            <span id="btnText">Зарегистрироваться</span>
+          </button>
+        </div>
+
+        <div class="success-view" id="successView">
+          <div class="success-icon">✓</div>
+          <h3>Готово!</h3>
+          <p>Ваши данные успешно<br />сохранены. Спасибо!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ⬇️ ВСТАВЬТЕ СЮДА ССЫЛКУ НА ВАШ GOOGLE APPS SCRIPT
+      const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbyrd99G6dLKD6b01LTHQEIY6oH_M9LyZ92RcBKI2KZQc3eo67m-dtoC8rBwRIoRb8TU/exec";
+
+      function showToast(msg, type = "success") {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "toast " + type;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3500);
+      }
+
+      function validate(name, email, phone) {
+        if (!name.trim()) return "Введите имя";
+        if (!email.trim() || !email.includes("@"))
+          return "Введите корректный email";
+        if (!phone.trim() || phone.replace(/\D/g, "").length < 7)
+          return "Введите корректный телефон";
+        return null;
+      }
+
+      async function submitForm() {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+
+        const err = validate(name, email, phone);
+        if (err) {
+          showToast("⚠ " + err, "error");
+          return;
+        }
+
+        if (SCRIPT_URL === "ВСТАВЬТЕ_ВАШУ_ССЫЛКУ_СЮДА") {
+          showToast("⚠ Сначала вставьте ссылку на Apps Script!", "error");
+          return;
+        }
+
+        const btn = document.getElementById("submitBtn");
+        const btnText = document.getElementById("btnText");
+        btn.disabled = true;
+        btnText.innerHTML = '<span class="spinner"></span>Отправка...';
+
+        try {
+          const params = new URLSearchParams({ name, email, phone });
+          await fetch(SCRIPT_URL + "?" + params.toString(), {
+            method: "GET",
+            mode: "no-cors",
+          });
+
+          // no-cors doesn't give us response — assume success after short delay
+          await new Promise((r) => setTimeout(r, 800));
+
+          document.getElementById("formView").style.display = "none";
+          const sv = document.getElementById("successView");
+          sv.style.display = "block";
+        } catch (e) {
+          showToast("Ошибка отправки. Попробуйте снова.", "error");
+          btn.disabled = false;
+          btnText.textContent = "Зарегистрироваться";
+        }
+      }
+
+      // Phone mask
+      document.getElementById("phone").addEventListener("input", function () {
+        let v = this.value.replace(/\D/g, "");
+        if (v.startsWith("8")) v = "7" + v.slice(1);
+        if (v.startsWith("7") && v.length > 1) {
+          let f = "+7";
+          if (v.length > 1) f += " (" + v.slice(1, 4);
+          if (v.length > 4) f += ") " + v.slice(4, 7);
+          if (v.length > 7) f += "-" + v.slice(7, 9);
+          if (v.length > 9) f += "-" + v.slice(9, 11);
+          this.value = f;
+        }
+      });
+
+      // Enter key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") submitForm();
+      });
+    </script>
+  </body>
+</html>
